@@ -1,0 +1,49 @@
+.table-container {
+  width: 100%;
+
+  .mat-mdc-table {
+    width: 100%;
+
+    .mat-mdc-header-cell {
+      font-weight: 600;
+    }
+
+    .mat-mdc-cell {
+      padding: 12px 16px;
+    }
+
+    .mat-column-actions {
+      text-align: right;
+      white-space: nowrap;
+      width: 150px;
+
+      button {
+        margin-left: 4px;
+      }
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: capitalize;
+
+      &.status-pending {
+        background-color: #fff3e0;
+        color: #e65100;
+      }
+
+      &.status-in-progress {
+        background-color: #e3f2fd;
+        color: #0d47a1;
+      }
+
+      &.status-completed {
+        background-color: #e8f5e9;
+        color: #1b5e20;
+      }
+    }
+  }
+}

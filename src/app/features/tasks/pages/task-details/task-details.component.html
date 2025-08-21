@@ -1,0 +1,68 @@
+<div class="task-details-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Task Details</h1>
+    <div class="actions" *ngIf="task && !loading">
+      <button mat-raised-button color="primary" (click)="openEditDialog()">
+        <mat-icon>edit</mat-icon> Edit
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteTask()">
+        <mat-icon>delete</mat-icon> Delete
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Loading task details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon>error_outline</mat-icon>
+    {{ error }}
+  </div>
+
+  <mat-card *ngIf="task && !loading" class="task-card">
+    <mat-card-header>
+      <mat-card-title>{{ task.title }}</mat-card-title>
+      <mat-card-subtitle>
+        <span class="status-badge" [class]="getStatusClass(task.status)">
+          {{ task.status | titlecase }}
+        </span>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="task-info">
+        <div class="info-section">
+          <h3>Description</h3>
+          <p class="description">{{ task.description }}</p>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <h4>Created At</h4>
+            <p>{{ task.createdAt | date:'medium' }}</p>
+          </div>
+
+          <div class="info-item">
+            <h4>Last Updated</h4>
+            <p>{{ task.updatedAt | date:'medium' }}</p>
+          </div>
+
+          <div class="info-item">
+            <h4>Updated By</h4>
+            <p>{{ task.updatedBy }}</p>
+          </div>
+
+          <div class="info-item">
+            <h4>Task ID</h4>
+            <p>{{ task.id }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

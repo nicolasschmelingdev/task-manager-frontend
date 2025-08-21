@@ -1,0 +1,84 @@
+.dialog-container {
+  width: 100%;
+  max-width: 700px;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 8px 0;
+
+  .title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.loading, .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  gap: 12px;
+}
+
+.content {
+  padding: 8px 0 0;
+}
+
+.status-row {
+  margin: 8px 0 12px;
+
+  .status-chip {
+    font-weight: 600;
+  }
+}
+
+.section {
+  margin: 16px 0;
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .description {
+    margin: 0;
+    color: rgba(0,0,0,.8);
+    white-space: pre-wrap;
+  }
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin: 8px 0 16px;
+
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-item {
+    display: flex;
+    gap: 6px;
+    .label {
+      color: rgba(0,0,0,.6);
+    }
+    .value {
+      color: rgba(0,0,0,.87);
+      font-weight: 500;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}

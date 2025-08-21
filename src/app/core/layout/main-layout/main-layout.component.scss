@@ -1,0 +1,98 @@
+// Main layout container
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.sidenav-container {
+  flex: 1;
+  min-height: 100%;
+  background-color: #f5f5f5;
+}
+
+// Sidebar styles
+.sidenav {
+  width: 250px;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.24);
+  
+  .sidenav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 64px;
+    background-color: #3f51b5;
+    color: white;
+    
+    span {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+  
+  mat-nav-list {
+    padding-top: 0;
+    
+    a {
+      border-left: 4px solid transparent;
+      margin: 4px 8px;
+      border-radius: 0 24px 24px 0;
+      
+      &:hover, &.active {
+        background-color: rgba(63, 81, 181, 0.1);
+      }
+      
+      &.active {
+        border-left-color: #3f51b5;
+        background-color: rgba(63, 81, 181, 0.04);
+        
+        mat-icon, span {
+          color: #3f51b5;
+          font-weight: 500;
+        }
+      }
+      
+      mat-icon {
+        margin-right: 16px;
+      }
+    }
+  }
+}
+
+// Main content area
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+// Toolbar styles
+.main-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  
+  .app-title {
+    margin-left: 16px;
+    font-size: 18px;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+// Main content
+.main-content {
+  flex: 1;
+  padding: 24px;
+  
+  @media (max-width: 599px) {
+    padding: 16px;
+  }
+}

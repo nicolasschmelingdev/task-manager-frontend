@@ -1,0 +1,341 @@
+// Status badge styles
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.4px;
+
+  .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+
+  &.status-pending {
+    background-color: #fff3e0;
+    color: #e65100;
+
+    .status-dot {
+      background-color: #e65100;
+    }
+  }
+
+  &.status-in-progress {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+
+    .status-dot {
+      background-color: #1976d2;
+    }
+  }
+
+  &.status-completed {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+
+    .status-dot {
+      background-color: #2e7d32;
+    }
+  }
+}
+
+// Main container
+// Search and filter styles
+.search-container {
+  flex: 1;
+  min-width: 250px;
+
+  .search-field {
+    width: 100%;
+
+    .mat-mdc-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      min-height: 40px;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+}
+
+mat-card.task-list-container {
+  max-width: 1200px;
+  margin: 24px auto;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+
+  mat-card-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 16px;
+
+    mat-card-title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 16px;
+
+      @media (min-width: 600px) {
+        margin-bottom: 0;
+      }
+    }
+
+    .new-task-button {
+      margin-left: 0;
+      width: 100%;
+
+      @media (min-width: 600px) {
+        width: auto;
+        margin-left: 16px;
+      }
+    }
+  }
+
+  mat-card-content {
+    padding: 0 24px 24px;
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 16px 24px 24px;
+      align-items: center;
+
+      .search-container {
+        flex: 1;
+        min-width: 200px;
+
+        mat-form-field {
+          width: 100%;
+        }
+      }
+
+      .status-filter {
+        width: 200px;
+
+        mat-form-field {
+          width: 100%;
+        }
+
+        .status-option {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+
+            &.status-pending {
+              background-color: #e65100;
+            }
+
+            &.status-in-progress {
+              background-color: #1976d2;
+            }
+
+            &.status-completed {
+              background-color: #2e7d32;
+            }
+          }
+        }
+      }
+
+      @media (max-width: 599px) {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin: 16px 16px 24px;
+
+        .search-container,
+        .status-filter {
+          width: 100%;
+        }
+      }
+    }
+
+    .table-container {
+      margin-top: 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+
+      @media (max-width: 599px) {
+        margin-left: -16px;
+        margin-right: -16px;
+        width: calc(100% + 32px);
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: capitalize;
+        min-width: 90px;
+        justify-content: center;
+
+        &.status-pending {
+          background-color: #fff3e0;
+          color: #e65100;
+        }
+
+        &.status-in-progress {
+          background-color: #e3f2fd;
+          color: #0d47a1;
+        }
+
+        &.status-completed {
+          background-color: #e8f5e9;
+          color: #1b5e20;
+        }
+      }
+
+      .loading-spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+
+        mat-spinner {
+          margin-bottom: 16px;
+        }
+
+        p {
+          margin: 8px 0 0;
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      .error-message {
+        display: flex;
+        align-items: center;
+        background-color: #ffebee;
+        color: #c62828;
+        padding: 12px 16px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+
+      .mat-elevation-z8 {
+        width: 100%;
+        min-width: 300px;
+
+        table {
+          font-weight: 600;
+          color: #424242;
+          font-size: 14px;
+
+          &:first-child {
+            padding-left: 24px;
+            border-top-left-radius: 8px;
+          }
+
+          &:last-child {
+            padding-right: 24px;
+            border-top-right-radius: 8px;
+          }
+        }
+      }
+
+      .mat-mdc-row {
+        transition: background-color 0.2s, box-shadow 0.2s;
+        position: relative;
+
+        &:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          bottom: 0;
+          height: 1px;
+          background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        &:hover {
+          background-color: #f8f9ff;
+        }
+
+        &:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+
+        &.mat-mdc-row-selected {
+          background-color: #f0f4ff;
+        }
+      }
+
+      .mat-mdc-cell {
+        padding: 16px 24px;
+        border: none;
+        font-size: 14px;
+        color: #424242;
+        vertical-align: middle;
+
+        &:first-child {
+          padding-left: 24px;
+        }
+
+        &.mat-warn {
+          color: #d32f2f;
+        }
+
+        &.mat-primary {
+          color: #303f9f;
+        }
+      }
+
+      /* Actions column: keep width predictable and targets touch-friendly */
+      .mat-column-actions {
+        width: 56px;
+        min-width: 56px;
+        padding-right: 16px;
+        .actions-wrapper {
+          display: flex;
+          justify-content: flex-end;
+        }
+        button[mat-icon-button] {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      /* On compact screens, hide less critical columns first */
+      @media (max-width: 480px) {
+        .mat-column-updatedBy {
+          display: none;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .mat-column-updatedAt {
+          display: none;
+        }
+      }
+    }
+  }
+}

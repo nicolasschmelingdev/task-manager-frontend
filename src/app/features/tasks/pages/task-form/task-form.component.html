@@ -1,0 +1,105 @@
+<div class="task-form-container">
+  <h2 mat-dialog-title>
+    <mat-icon class="dialog-icon">{{ isEditMode ? 'edit' : 'add_task' }}</mat-icon>
+    {{ isEditMode ? 'Edit Task' : 'Create New Task' }}
+  </h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form" #form="ngForm">
+      <!-- Title Field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput 
+               formControlName="title" 
+               placeholder="Enter task title" 
+               required
+               maxlength="100">
+        <mat-hint align="end">{{ title.value?.length || 0 }}/100</mat-hint>
+        <mat-error *ngIf="title.hasError('required')">
+          <mat-icon>error_outline</mat-icon>
+          Title is required
+        </mat-error>
+        <mat-error *ngIf="title.hasError('maxlength')">
+          <mat-icon>error_outline</mat-icon>
+          Title must be less than 100 characters
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description Field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput 
+                 formControlName="description" 
+                 rows="4"
+                 placeholder="Enter task description"
+                 required
+                 maxlength="500"></textarea>
+        <mat-hint align="end">{{ description.value?.length || 0 }}/500</mat-hint>
+        <mat-error *ngIf="description.hasError('required')">
+          <mat-icon>error_outline</mat-icon>
+          Description is required
+        </mat-error>
+        <mat-error *ngIf="description.hasError('maxlength')">
+          <mat-icon>error_outline</mat-icon>
+          Description must be less than 500 characters
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Status Field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option *ngFor="let status of taskStatuses" 
+                     [value]="status" 
+                     [class]="'status-' + status.toLowerCase()"
+                     class="status-option">
+            <div class="status-option-content">
+              <mat-icon class="status-icon">
+                {{ status === 'PENDING' ? 'pending_actions' : 
+                   status === 'IN_PROGRESS' ? 'hourglass_bottom' : 'check_circle_outline' }}
+              </mat-icon>
+              <div class="status-text">
+                <div class="status-label">
+                  {{ status === 'PENDING' ? 'Pending' : 
+                     status === 'IN_PROGRESS' ? 'In Progress' : 'Completed' }}
+                </div>
+                <div class="status-description">
+                  {{ status === 'PENDING' ? 'Task has not been started' : 
+                     status === 'IN_PROGRESS' ? 'Task is currently being worked on' : 'Task has been completed' }}
+                </div>
+              </div>
+            </div>
+          </mat-option>
+        </mat-select>
+        <mat-hint>Select the current status of the task</mat-hint>
+        <mat-error *ngIf="status.hasError('required')">
+          <mat-icon>error_outline</mat-icon>
+          Status is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-button 
+            type="button"
+            (click)="onCancel()" 
+            [disabled]="loading"
+            class="cancel-button"
+            aria-label="Cancel">
+      <mat-icon>close</mat-icon>
+      <span>Cancel</span>
+    </button>
+    <button mat-raised-button 
+            type="submit"
+            color="primary" 
+            [disabled]="taskForm.invalid || loading"
+            class="submit-button"
+            [class.loading]="loading"
+            [attr.aria-busy]="loading"
+            [attr.aria-label]="isEditMode ? 'Update task' : 'Create task'">
+      <mat-icon *ngIf="!loading">{{ isEditMode ? 'update' : 'add_task' }}</mat-icon>
+      <span *ngIf="!loading">{{ isEditMode ? 'Update' : 'Create' }} Task</span>
+      <mat-spinner *ngIf="loading" diameter="20" aria-hidden="true"></mat-spinner>
+    </button>
+  </mat-dialog-actions>

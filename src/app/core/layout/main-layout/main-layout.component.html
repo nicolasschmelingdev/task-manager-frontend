@@ -1,0 +1,54 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar Navigation -->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="'navigation'"
+               [mode]="sidenavMode"
+               [opened]="sidenavOpened">
+    <mat-toolbar class="sidenav-header">
+      <span>Gerenciador de Tarefas</span>
+      <button mat-icon-button (click)="toggleSidenav()" aria-label="Fechar navegação">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+    
+    <mat-nav-list>
+      <a mat-list-item routerLink="/tasks" routerLinkActive="active" (click)="toggleSidenav()">
+        <mat-icon matListItemIcon>task</mat-icon>
+        <span matListItemTitle>Tarefas</span>
+      </a>
+      <a mat-list-item routerLink="/tasks/kanban" routerLinkActive="active" (click)="toggleSidenav()">
+        <mat-icon matListItemIcon>view_kanban</mat-icon>
+        <span matListItemTitle>Quadro Kanban</span>
+      </a>
+      <a mat-list-item routerLink="/tasks/new" routerLinkActive="active" (click)="toggleSidenav()">
+        <mat-icon matListItemIcon>add</mat-icon>
+        <span matListItemTitle>Nova tarefa</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content>
+    <!-- Header Toolbar -->
+    <mat-toolbar color="primary" class="main-toolbar">
+      <button type="button"
+              aria-label="Abrir/fechar menu"
+              mat-icon-button
+              (click)="toggleSidenav()">
+        <mat-icon aria-label="Ícone do menu lateral">menu</mat-icon>
+      </button>
+      <span class="app-title">Gerenciador de Tarefas</span>
+      <span class="spacer"></span>
+      <button mat-icon-button aria-label="Menu do usuário">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- Page Content -->
+    <main class="main-content">
+      <div class="app-container">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,58 @@
+.task-card {
+  margin-bottom: 16px;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+
+    &.status-pending {
+      background-color: #fff3e0;
+      color: #e65100;
+    }
+
+    &.status-in-progress {
+      background-color: #e3f2fd;
+      color: #0d47a1;
+    }
+
+    &.status-completed {
+      background-color: #e8f5e9;
+      color: #1b5e20;
+    }
+  }
+
+  .task-description {
+    margin: 16px 0;
+    color: #666;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .task-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  mat-card-actions {
+    padding: 8px 16px 16px;
+
+    button {
+      margin-left: 8px;
+    }
+  }
+}

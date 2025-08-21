@@ -1,0 +1,61 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 class="title" *ngIf="task; else loadingTitle">{{ task.title }}</h2>
+    <ng-template #loadingTitle>
+      <h2 class="title">Carregando...</h2>
+    </ng-template>
+    <button mat-icon-button (click)="fechar()" aria-label="Fechar">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="36"></mat-spinner>
+    <p>Carregando detalhes da tarefa...</p>
+  </div>
+
+  <div *ngIf="!loading && error" class="error">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && task" class="content">
+    <div class="status-row">
+      <mat-chip-set>
+        <mat-chip class="status-chip">
+          <mat-icon>{{ getStatusIcon(task.status) }}</mat-icon>
+          {{ getStatusLabel(task.status) }}
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="section">
+      <h3>Descrição</h3>
+      <p class="description" [innerHTML]="task.description || 'Sem descrição.'"></p>
+    </div>
+
+    <div class="meta">
+      <div class="meta-item">
+        <span class="label">Criada em:</span>
+        <span class="value">{{ task.createdAt | date:'medium' }}</span>
+      </div>
+      <div class="meta-item" *ngIf="task.updatedAt">
+        <span class="label">Atualizada em:</span>
+        <span class="value">{{ task.updatedAt | date:'medium' }}</span>
+      </div>
+      <div class="meta-item" *ngIf="task.updatedBy">
+        <span class="label">Atualizada por:</span>
+        <span class="value">{{ task.updatedBy }}</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button mat-stroked-button (click)="fechar()">
+        <mat-icon>close</mat-icon>
+        Fechar
+      </button>
+    </div>
+  </div>
+</div>

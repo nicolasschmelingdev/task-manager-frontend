@@ -1,0 +1,91 @@
+<div class="kanban-container">
+  <div class="kanban-header">
+    <h2>Quadro Kanban</h2>
+    <button mat-stroked-button color="primary" (click)="loadTasks()">
+      <mat-icon>refresh</mat-icon>
+      Atualizar
+    </button>
+  </div>
+
+  <div class="kanban-board" *ngIf="!loading && !error; else loadingOrError">
+    <div class="kanban-column">
+      <div class="column-header">
+        <mat-icon>pending_actions</mat-icon>
+        <span>Pendente</span>
+        <span class="count">{{ pending.length }}</span>
+        <button mat-icon-button (click)="openCreate(TaskStatus.PENDING)" aria-label="Nova tarefa pendente">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="pending" class="task-list"
+           [cdkDropListConnectedTo]="[inProgressList, completedList]"
+           (cdkDropListDropped)="drop($event, TaskStatus.PENDING)">
+        <div class="task-card" *ngFor="let task of pending" cdkDrag (click)="openDetails(task)">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-meta">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ task.updatedAt | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kanban-column">
+      <div class="column-header">
+        <mat-icon>hourglass_bottom</mat-icon>
+        <span>Em andamento</span>
+        <span class="count">{{ inProgress.length }}</span>
+        <button mat-icon-button (click)="openCreate(TaskStatus.IN_PROGRESS)" aria-label="Nova tarefa em andamento">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress" class="task-list"
+           [cdkDropListConnectedTo]="[pendingList, completedList]"
+           (cdkDropListDropped)="drop($event, TaskStatus.IN_PROGRESS)">
+        <div class="task-card" *ngFor="let task of inProgress" cdkDrag (click)="openDetails(task)">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-meta">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ task.updatedAt | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kanban-column">
+      <div class="column-header">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Concluída</span>
+        <span class="count">{{ completed.length }}</span>
+        <button mat-icon-button (click)="openCreate(TaskStatus.COMPLETED)" aria-label="Nova tarefa concluída">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="completed" class="task-list"
+           [cdkDropListConnectedTo]="[pendingList, inProgressList]"
+           (cdkDropListDropped)="drop($event, TaskStatus.COMPLETED)">
+        <div class="task-card" *ngFor="let task of completed" cdkDrag (click)="openDetails(task)">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-meta">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ task.updatedAt | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loadingOrError>
+    <div class="state" *ngIf="loading">
+      <mat-icon>hourglass_empty</mat-icon>
+      <p>Carregando tarefas...</p>
+    </div>
+    <div class="state error" *ngIf="!loading && error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadTasks()">
+        Tentar novamente
+      </button>
+    </div>
+  </ng-template>
+</div>
