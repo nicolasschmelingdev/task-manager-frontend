@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080/api', // This will be used when we connect to the Spring Boot backend
-  mockApi: true // Flag to enable/disable mock data
+  apiBaseUrl: 'http://localhost:8081', // Backend base URL per BACKEND_REQUIREMENTS
+  mockApi: false // Use real backend in development
 };
