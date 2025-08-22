@@ -5,15 +5,43 @@
 
 .dialog-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 8px 8px 0;
+  padding: 20px 24px;
+  background-color: #f5f7ff;
+  border-bottom: 1px solid var(--divider);
+
+  .title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dialog-icon {
+    color: var(--primary-color);
+  }
 
   .title {
     margin: 0;
     font-size: 20px;
     font-weight: 600;
+    color: rgba(0,0,0,.87);
+  }
+
+  .subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 599px) {
+    padding: 16px;
   }
 }
 
@@ -27,7 +55,7 @@
 }
 
 .content {
-  padding: 8px 0 0;
+  padding: 8px 24px 0;
 }
 
 .status-row {
@@ -80,5 +108,5 @@
 .footer {
   display: flex;
   justify-content: flex-end;
-  padding-top: 8px;
+  padding: 8px 24px 16px;
 }

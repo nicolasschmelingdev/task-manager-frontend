@@ -1,82 +1,86 @@
 <div class="task-form-container">
   <h2 mat-dialog-title>
     <mat-icon class="dialog-icon">{{ isEditMode ? 'edit' : 'add_task' }}</mat-icon>
-    {{ isEditMode ? 'Edit Task' : 'Create New Task' }}
+    {{ isEditMode ? 'Editar Tarefa' : 'Criar Nova Tarefa' }}
+    <div class="subtitle" *ngIf="!isEditMode">Adicione um título claro, uma descrição objetiva e escolha um status.</div>
   </h2>
 
   <mat-dialog-content>
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form" #form="ngForm">
-      <!-- Title Field -->
-      <mat-form-field appearance="outline">
-        <mat-label>Title</mat-label>
-        <input matInput 
-               formControlName="title" 
-               placeholder="Enter task title" 
-               required
-               maxlength="100">
-        <mat-hint align="end">{{ title.value?.length || 0 }}/100</mat-hint>
-        <mat-error *ngIf="title.hasError('required')">
-          <mat-icon>error_outline</mat-icon>
-          Title is required
-        </mat-error>
-        <mat-error *ngIf="title.hasError('maxlength')">
-          <mat-icon>error_outline</mat-icon>
-          Title must be less than 100 characters
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Description Field -->
-      <mat-form-field appearance="outline">
-        <mat-label>Description</mat-label>
-        <textarea matInput 
-                 formControlName="description" 
-                 rows="4"
-                 placeholder="Enter task description"
+      <div class="form-grid">
+        <!-- Title Field -->
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Título</mat-label>
+          <input matInput 
+                 formControlName="title" 
+                 placeholder="Digite o título da tarefa" 
+                 [autofocus]="true"
                  required
-                 maxlength="500"></textarea>
-        <mat-hint align="end">{{ description.value?.length || 0 }}/500</mat-hint>
-        <mat-error *ngIf="description.hasError('required')">
-          <mat-icon>error_outline</mat-icon>
-          Description is required
-        </mat-error>
-        <mat-error *ngIf="description.hasError('maxlength')">
-          <mat-icon>error_outline</mat-icon>
-          Description must be less than 500 characters
-        </mat-error>
-      </mat-form-field>
+                 maxlength="100">
+          <mat-hint align="end">{{ title.value?.length || 0 }}/100</mat-hint>
+          <mat-error *ngIf="title.hasError('required')">
+            <mat-icon>error_outline</mat-icon>
+            Título é obrigatório
+          </mat-error>
+          <mat-error *ngIf="title.hasError('maxlength')">
+            <mat-icon>error_outline</mat-icon>
+            O título deve ter no máximo 100 caracteres
+          </mat-error>
+        </mat-form-field>
 
-      <!-- Status Field -->
-      <mat-form-field appearance="outline">
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status" required>
-          <mat-option *ngFor="let status of taskStatuses" 
-                     [value]="status" 
-                     [class]="'status-' + status.toLowerCase()"
-                     class="status-option">
-            <div class="status-option-content">
-              <mat-icon class="status-icon">
-                {{ status === 'PENDING' ? 'pending_actions' : 
-                   status === 'IN_PROGRESS' ? 'hourglass_bottom' : 'check_circle_outline' }}
-              </mat-icon>
-              <div class="status-text">
-                <div class="status-label">
-                  {{ status === 'PENDING' ? 'Pending' : 
-                     status === 'IN_PROGRESS' ? 'In Progress' : 'Completed' }}
-                </div>
-                <div class="status-description">
-                  {{ status === 'PENDING' ? 'Task has not been started' : 
-                     status === 'IN_PROGRESS' ? 'Task is currently being worked on' : 'Task has been completed' }}
+        <!-- Description Field -->
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput 
+                   formControlName="description" 
+                   rows="4"
+                   placeholder="Digite a descrição da tarefa"
+                   required
+                   maxlength="500"></textarea>
+          <mat-hint align="end">{{ description.value?.length || 0 }}/500</mat-hint>
+          <mat-error *ngIf="description.hasError('required')">
+            <mat-icon>error_outline</mat-icon>
+            Descrição é obrigatória
+          </mat-error>
+          <mat-error *ngIf="description.hasError('maxlength')">
+            <mat-icon>error_outline</mat-icon>
+            A descrição deve ter no máximo 500 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Status Field -->
+        <mat-form-field appearance="outline" class="half">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let status of taskStatuses" 
+                       [value]="status" 
+                       [class]="'status-' + status.toLowerCase()"
+                       class="status-option">
+              <div class="status-option-content">
+                <mat-icon class="status-icon">
+                  {{ status === 'PENDING' ? 'pending_actions' : 
+                     status === 'IN_PROGRESS' ? 'hourglass_bottom' : 'check_circle_outline' }}
+                </mat-icon>
+                <div class="status-text">
+                  <div class="status-label">
+                    {{ status === 'PENDING' ? 'Pendente' : 
+                       status === 'IN_PROGRESS' ? 'Em andamento' : 'Concluída' }}
+                  </div>
+                  <div class="status-description">
+                    {{ status === 'PENDING' ? 'Tarefa ainda não iniciada' : 
+                       status === 'IN_PROGRESS' ? 'Tarefa em andamento' : 'Tarefa concluída' }}
+                  </div>
                 </div>
               </div>
-            </div>
-          </mat-option>
-        </mat-select>
-        <mat-hint>Select the current status of the task</mat-hint>
-        <mat-error *ngIf="status.hasError('required')">
-          <mat-icon>error_outline</mat-icon>
-          Status is required
-        </mat-error>
-      </mat-form-field>
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecione o status atual da tarefa</mat-hint>
+          <mat-error *ngIf="status.hasError('required')">
+            <mat-icon>error_outline</mat-icon>
+            Status é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
     </form>
   </mat-dialog-content>
 
@@ -86,20 +90,22 @@
             (click)="onCancel()" 
             [disabled]="loading"
             class="cancel-button"
-            aria-label="Cancel">
+            aria-label="Cancelar">
       <mat-icon>close</mat-icon>
-      <span>Cancel</span>
+      <span>Cancelar</span>
     </button>
     <button mat-raised-button 
             type="submit"
+            (click)="onSubmit()"
             color="primary" 
             [disabled]="taskForm.invalid || loading"
             class="submit-button"
             [class.loading]="loading"
             [attr.aria-busy]="loading"
-            [attr.aria-label]="isEditMode ? 'Update task' : 'Create task'">
+            [attr.aria-label]="isEditMode ? 'Atualizar tarefa' : 'Criar tarefa'">
       <mat-icon *ngIf="!loading">{{ isEditMode ? 'update' : 'add_task' }}</mat-icon>
-      <span *ngIf="!loading">{{ isEditMode ? 'Update' : 'Create' }} Task</span>
+      <span *ngIf="!loading">{{ isEditMode ? 'Atualizar' : 'Criar' }} Tarefa</span>
       <mat-spinner *ngIf="loading" diameter="20" aria-hidden="true"></mat-spinner>
     </button>
   </mat-dialog-actions>
+</div>

@@ -109,7 +109,7 @@ export class TaskFormComponent implements OnInit {
         }
       }
 
-      this.snackBar.open('Please fill in all required fields correctly', 'OK', {
+      this.snackBar.open('Preencha corretamente os campos obrigatórios', 'OK', {
         duration: 3000,
         panelClass: ['error-snackbar'],
         horizontalPosition: 'right',
@@ -138,8 +138,8 @@ export class TaskFormComponent implements OnInit {
       finalize(() => this.loading = false)
     ).subscribe({
       next: (task) => {
-        const message = this.isEditMode ? 'Task updated successfully!' : 'Task created successfully!';
-        this.snackBar.open(message, 'Close', {
+        const message = this.isEditMode ? 'Tarefa atualizada com sucesso!' : 'Tarefa criada com sucesso!';
+        this.snackBar.open(message, 'Fechar', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -148,21 +148,21 @@ export class TaskFormComponent implements OnInit {
         this.dialogRef.close({ success: true, task });
       },
       error: (error) => {
-        console.error('Error saving task:', error);
+        console.error('Erro ao salvar tarefa:', error);
 
         // More specific error messages based on the error
-        let errorMessage = `Error ${this.isEditMode ? 'updating' : 'creating'} task. `;
+        let errorMessage = `Erro ao ${this.isEditMode ? 'atualizar' : 'criar'} tarefa. `;
 
         if (error.status === 0) {
-          errorMessage += 'Unable to connect to the server. Please check your connection.';
+          errorMessage += 'Não foi possível conectar ao servidor. Verifique sua conexão.';
         } else if (error.status === 400) {
-          errorMessage += 'Invalid data provided. Please check your input.';
+          errorMessage += 'Dados inválidos. Verifique as informações preenchidas.';
         } else if (error.status === 401 || error.status === 403) {
-          errorMessage = 'You are not authorized to perform this action.';
+          errorMessage = 'Você não tem autorização para realizar esta ação.';
         } else if (error.status >= 500) {
-          errorMessage += 'A server error occurred. Please try again later.';
+          errorMessage += 'Ocorreu um erro no servidor. Tente novamente mais tarde.';
         } else {
-          errorMessage += 'Please try again.';
+          errorMessage += 'Tente novamente.';
         }
 
         this.snackBar.open(errorMessage, 'OK', {
@@ -184,10 +184,10 @@ export class TaskFormComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '400px',
         data: {
-          title: 'Unsaved Changes',
-          message: 'You have unsaved changes. Are you sure you want to discard them?',
-          confirmText: 'Discard',
-          cancelText: 'Cancel',
+          title: 'Alterações não salvas',
+          message: 'Você possui alterações não salvas. Tem certeza de que deseja descartá-las?',
+          confirmText: 'Descartar',
+          cancelText: 'Cancelar',
           confirmColor: 'warn'
         }
       });

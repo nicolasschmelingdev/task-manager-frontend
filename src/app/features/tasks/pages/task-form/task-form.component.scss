@@ -40,6 +40,14 @@ h2.mat-dialog-title {
     color: var(--primary-color);
   }
 
+  .subtitle {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
   @media (max-width: 599px) {
     padding: 16px;
     font-size: 18px;
@@ -70,6 +78,30 @@ h2.mat-dialog-title {
 
   @media (min-width: 600px) {
     min-width: 400px;
+  }
+}
+
+// Responsive grid wrapper to align fields nicely
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  .full {
+    grid-column: 1 / -1;
+  }
+
+  .half {
+    grid-column: span 1;
+  }
+
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+
+    .half,
+    .full {
+      grid-column: 1 / -1;
+    }
   }
 }
 
