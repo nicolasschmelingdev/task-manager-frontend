@@ -130,18 +130,23 @@ export class TaskKanbanComponent implements OnInit {
     const dialogRef = this.dialog.open(TaskFormComponent, {
       width: '640px',
       maxWidth: '95vw',
-      data: { isEditMode: false, presetStatus: status }
+      maxHeight: '90vh',
+      disableClose: true,
+      autoFocus: false,
+      data: { task: null, presetStatus: status },
+      panelClass: 'task-form-dialog'
     });
 
-    dialogRef.afterClosed().subscribe((created: Task | undefined) => {
-      if (created) {
+    dialogRef.afterClosed().subscribe((result: { success: boolean; task: Task } | undefined) => {
+      if (result?.success && result.task) {
+        const created = result.task;
         // Se o formulário não setar status, garantimos aqui
         const s = created.status ?? status;
         created.status = s;
         if (s === TaskStatus.PENDING) this.pending = [created, ...this.pending];
         else if (s === TaskStatus.IN_PROGRESS) this.inProgress = [created, ...this.inProgress];
         else if (s === TaskStatus.COMPLETED) this.completed = [created, ...this.completed];
-        this.snackBar.open('Tarefa criada', 'Fechar', { duration: 2500 });
+        this.snackBar.open('Tarefa criada com sucesso!', 'Fechar', { duration: 2500, panelClass: ['success-snackbar'] });
       }
     });
   }

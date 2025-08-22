@@ -5,7 +5,7 @@
                [mode]="sidenavMode"
                [opened]="sidenavOpened">
     <mat-toolbar class="sidenav-header">
-      <span>Gerenciador de Tarefas</span>
+      <span>Menu</span>
       <button mat-icon-button (click)="toggleSidenav()" aria-label="Fechar navegação">
         <mat-icon>close</mat-icon>
       </button>
@@ -19,10 +19,6 @@
       <a mat-list-item routerLink="/tasks/kanban" routerLinkActive="active" (click)="toggleSidenav()">
         <mat-icon matListItemIcon>view_kanban</mat-icon>
         <span matListItemTitle>Quadro Kanban</span>
-      </a>
-      <a mat-list-item routerLink="/tasks/new" routerLinkActive="active" (click)="toggleSidenav()">
-        <mat-icon matListItemIcon>add</mat-icon>
-        <span matListItemTitle>Nova tarefa</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

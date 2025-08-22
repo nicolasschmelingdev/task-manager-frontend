@@ -2,7 +2,6 @@
   <h2 mat-dialog-title>
     <mat-icon class="dialog-icon">{{ isEditMode ? 'edit' : 'add_task' }}</mat-icon>
     {{ isEditMode ? 'Editar Tarefa' : 'Criar Nova Tarefa' }}
-    <div class="subtitle" *ngIf="!isEditMode">Adicione um título claro, uma descrição objetiva e escolha um status.</div>
   </h2>
 
   <mat-dialog-content>
@@ -11,9 +10,9 @@
         <!-- Title Field -->
         <mat-form-field appearance="outline" class="full">
           <mat-label>Título</mat-label>
-          <input matInput 
-                 formControlName="title" 
-                 placeholder="Digite o título da tarefa" 
+          <input matInput
+                 formControlName="title"
+                 placeholder="Digite o título da tarefa"
                  [autofocus]="true"
                  required
                  maxlength="100">
@@ -31,8 +30,8 @@
         <!-- Description Field -->
         <mat-form-field appearance="outline" class="full">
           <mat-label>Descrição</mat-label>
-          <textarea matInput 
-                   formControlName="description" 
+          <textarea matInput
+                   formControlName="description"
                    rows="4"
                    placeholder="Digite a descrição da tarefa"
                    required
@@ -52,26 +51,12 @@
         <mat-form-field appearance="outline" class="half">
           <mat-label>Status</mat-label>
           <mat-select formControlName="status" required>
-            <mat-option *ngFor="let status of taskStatuses" 
-                       [value]="status" 
+            <mat-option *ngFor="let status of taskStatuses"
+                       [value]="status"
                        [class]="'status-' + status.toLowerCase()"
                        class="status-option">
-              <div class="status-option-content">
-                <mat-icon class="status-icon">
-                  {{ status === 'PENDING' ? 'pending_actions' : 
-                     status === 'IN_PROGRESS' ? 'hourglass_bottom' : 'check_circle_outline' }}
-                </mat-icon>
-                <div class="status-text">
-                  <div class="status-label">
-                    {{ status === 'PENDING' ? 'Pendente' : 
-                       status === 'IN_PROGRESS' ? 'Em andamento' : 'Concluída' }}
-                  </div>
-                  <div class="status-description">
-                    {{ status === 'PENDING' ? 'Tarefa ainda não iniciada' : 
-                       status === 'IN_PROGRESS' ? 'Tarefa em andamento' : 'Tarefa concluída' }}
-                  </div>
-                </div>
-              </div>
+              {{ status === 'PENDING' ? 'Pendente' :
+                 status === 'IN_PROGRESS' ? 'Em andamento' : 'Concluída' }}
             </mat-option>
           </mat-select>
           <mat-hint>Selecione o status atual da tarefa</mat-hint>
@@ -85,19 +70,19 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align="end" class="dialog-actions">
-    <button mat-button 
+    <button mat-button
             type="button"
-            (click)="onCancel()" 
+            (click)="onCancel()"
             [disabled]="loading"
             class="cancel-button"
             aria-label="Cancelar">
       <mat-icon>close</mat-icon>
       <span>Cancelar</span>
     </button>
-    <button mat-raised-button 
+    <button mat-raised-button
             type="submit"
             (click)="onSubmit()"
-            color="primary" 
+            color="primary"
             [disabled]="taskForm.invalid || loading"
             class="submit-button"
             [class.loading]="loading"

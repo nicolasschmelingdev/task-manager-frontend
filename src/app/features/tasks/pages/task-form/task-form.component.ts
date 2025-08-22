@@ -45,7 +45,7 @@ export class TaskFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<TaskFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { task: Task | null }
+    @Inject(MAT_DIALOG_DATA) public data: { task: Task | null; presetStatus?: TaskStatus }
   ) {
     this.taskForm = this.fb.group<TaskFormData>({
       title: this.fb.control('', [
@@ -56,7 +56,7 @@ export class TaskFormComponent implements OnInit {
         Validators.required,
         Validators.maxLength(500)
       ]),
-      status: this.fb.control<TaskStatus>(TaskStatus.PENDING, [
+      status: this.fb.control<TaskStatus>(this.data?.presetStatus ?? TaskStatus.PENDING, [
         Validators.required
       ])
     });
@@ -74,6 +74,9 @@ export class TaskFormComponent implements OnInit {
       // If we're in edit mode, mark all form controls as touched
       // to show validation errors immediately
       this.taskForm.markAllAsTouched();
+    } else if (this.data?.presetStatus) {
+      // Se for criação e veio preset de status, aplicamos
+      this.status.setValue(this.data.presetStatus);
     }
   }
 
