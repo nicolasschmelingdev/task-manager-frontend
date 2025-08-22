@@ -44,8 +44,22 @@ export class TaskService {
 
   getTasks(params: TaskRequestParams): Observable<TaskListResponse> {
     if (environment.mockApi) {
-      const { page = 0, size = 10, sort } = params;
+      const { page = 0, size = 10, sort, status, search } = params;
       let filteredTasks = [...this.tasks];
+
+      // Apply status filter when provided
+      if (status) {
+        filteredTasks = filteredTasks.filter(t => t.status === status);
+      }
+
+      // Apply search filter on title or description (case-insensitive)
+      if (search && search.trim()) {
+        const term = search.trim().toLowerCase();
+        filteredTasks = filteredTasks.filter(t =>
+          (t.title ?? '').toLowerCase().includes(term) ||
+          (t.description ?? '').toLowerCase().includes(term)
+        );
+      }
 
       if (sort) {
         const [field, direction] = sort.split(',');

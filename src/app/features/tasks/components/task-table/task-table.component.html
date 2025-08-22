@@ -1,15 +1,15 @@
 <div class="table-container">
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
+    <table mat-table [dataSource]="dataSource" matSort [matSortDisableClear]="true" (matSortChange)="onSortChange($event)">
       <!-- Title Column -->
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Title</th>
         <td mat-cell *matCellDef="let task">{{ task.title }}</td>
       </ng-container>
 
       <!-- Status Column -->
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Status</th>
         <td mat-cell *matCellDef="let task">
           <span class="status-badge" [class]="getStatusClass(task.status)">
             {{ task.status | titlecase }}
@@ -19,13 +19,13 @@
 
       <!-- Updated At Column -->
       <ng-container matColumnDef="updatedAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Last Updated</th>
         <td mat-cell *matCellDef="let task">{{ task.updatedAt | date:'medium' }}</td>
       </ng-container>
 
       <!-- Updated By Column -->
       <ng-container matColumnDef="updatedBy">
-        <th mat-header-cell *matHeaderCellDef>Updated By</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Updated By</th>
         <td mat-cell *matCellDef="let task">{{ task.updatedBy }}</td>
       </ng-container>
 

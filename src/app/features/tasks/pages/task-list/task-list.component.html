@@ -87,10 +87,10 @@
 
       <div *ngIf="!error && tasks.length > 0" class="mat-elevation-z1 table-wrapper">
         <div class="table-responsive">
-          <table mat-table [dataSource]="tasks" matSort (matSortChange)="onSortChange($event)" class="tasks-table">
+          <table mat-table [dataSource]="tasks" matSort [matSortDisableClear]="true" [matSortActive]="sortField" [matSortDirection]="sortDirection" (matSortChange)="onSortChange($event)" class="tasks-table">
             <!-- Title Column -->
             <ng-container matColumnDef="title">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tarefa</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Tarefa</th>
               <td mat-cell *matCellDef="let task" class="task-title" (click)="viewTask(task)">
                 <div class="title-wrapper">
                   <span class="title-text">{{ task.title }}</span>
@@ -103,7 +103,7 @@
 
             <!-- Status Column -->
             <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Status</th>
               <td mat-cell *matCellDef="let task" class="status-cell">
             <span class="status-badge" [class]="getStatusClass(task.status)">
               <span class="status-dot"></span>
@@ -114,7 +114,7 @@
 
             <!-- Updated At Column -->
             <ng-container matColumnDef="updatedAt">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Atualizada em</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header start="desc">Atualizada em</th>
               <td mat-cell *matCellDef="let task" class="updated-at">
                 <div class="date-time">
                   <div class="date">{{ task.updatedAt | date:'mediumDate' }}</div>
@@ -125,7 +125,7 @@
 
             <!-- Updated By Column -->
             <ng-container matColumnDef="updatedBy">
-              <th mat-header-cell *matHeaderCellDef>Atualizada por</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Atualizada por</th>
               <td mat-cell *matCellDef="let task">{{ task.updatedBy }}</td>
             </ng-container>
 
