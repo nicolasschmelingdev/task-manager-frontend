@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8081/api', // Backend base URL per BACKEND_REQUIREMENTS
+  apiBaseUrl: '/api', // Usar proxy do Angular para alcançar o backend no Docker
   mockApi: false // Use real backend in development
 };
