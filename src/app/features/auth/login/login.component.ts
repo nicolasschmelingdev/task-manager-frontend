@@ -27,18 +27,26 @@ import { AuthService } from '../../../core/services/auth.service';
     MatSnackBarModule
   ],
   template: `
-  <div class="login-container">
-    <mat-card class="login-card">
+  <div class="login-page">
+    <div class="brand">
+      <mat-icon class="brand-icon">task</mat-icon>
+      <div class="brand-text">
+        <h1>Gerenciador de Tarefas</h1>
+        <p>Organize seu trabalho com eficiência</p>
+      </div>
+    </div>
+
+    <mat-card class="login-card" appearance="outlined">
       <div class="header">
         <mat-icon>lock</mat-icon>
-        <h1>Entrar</h1>
-        <p class="subtitle">Acesse para gerenciar suas tarefas</p>
+        <h2>Bem-vindo</h2>
+        <p class="subtitle">Entre com suas credenciais para continuar</p>
       </div>
 
-      <form (ngSubmit)="onSubmit()" class="form">
+      <form (ngSubmit)="onSubmit()" class="form" autocomplete="on">
         <mat-form-field appearance="outline" class="full">
           <mat-label>Usuário</mat-label>
-          <input matInput [(ngModel)]="username" name="username" required autocomplete="username" />
+          <input matInput [(ngModel)]="username" name="username" required autocomplete="username" [autofocus]="true" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full">
@@ -50,29 +58,40 @@ import { AuthService } from '../../../core/services/auth.service';
         </mat-form-field>
 
         <div class="actions">
-          <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+          <button class="submit-button" mat-raised-button color="primary" type="submit" [disabled]="loading">
             <mat-icon *ngIf="!loading">login</mat-icon>
             <span *ngIf="!loading">Entrar</span>
             <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
           </button>
         </div>
 
-        <p *ngIf="error" class="error">{{ error }}</p>
+        <p *ngIf="error" class="error" role="alert">{{ error }}</p>
       </form>
+
+      <div class="help">
+        <span>Dica: use suas credenciais fornecidas pelo administrador.</span>
+      </div>
     </mat-card>
   </div>
   `,
   styles: [`
-    .login-container { display: grid; place-items: center; min-height: 100vh; padding: 16px; }
-    .login-card { width: 100%; max-width: 400px; padding: 8px 8px 16px; }
+    .login-page { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: linear-gradient(135deg, #f5f7ff, #eef2ff); }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #3f51b5; }
+    .brand-icon { font-size: 36px; width: 36px; height: 36px; }
+    .brand-text h1 { font-size: 20px; margin: 0; font-weight: 700; color: #3f51b5; }
+    .brand-text p { margin: 0; font-size: 12px; color: rgba(0,0,0,.6); }
+    .login-card { width: 100%; max-width: 420px; padding: 8px 8px 16px; box-shadow: 0 10px 30px rgba(63,81,181,0.12); border-radius: 10px; }
     .header { text-align: center; padding: 16px 8px 8px; }
-    .header mat-icon { color: var(--primary-color); }
-    .header h1 { margin: 8px 0 0; font-size: 22px; font-weight: 600; }
+    .header mat-icon { color: #3f51b5; }
+    .header h2 { margin: 8px 0 0; font-size: 22px; font-weight: 600; }
     .header .subtitle { margin: 4px 0 0; color: rgba(0,0,0,.6); font-size: 13px; }
     form.form { display: grid; gap: 12px; padding: 8px; }
     .full { width: 100%; }
-    .actions { display: flex; justify-content: center; padding-top: 4px; }
-    .error { color: #c62828; margin: 4px 0 0; text-align: center; }
+    .actions { display: flex; justify-content: center; padding-top: 8px; }
+    .submit-button { width: 100%; max-width: 360px; position: relative; }
+    .submit-button mat-icon { margin-right: 6px; }
+    .error { color: #c62828; margin: 8px 0 0; text-align: center; }
+    .help { text-align: center; margin-top: 8px; font-size: 12px; color: rgba(0,0,0,.6); }
   `]
 })
 export class LoginComponent {

@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -20,7 +23,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ],
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
@@ -30,6 +34,8 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   sidenavMode: 'over' | 'side' = 'over';
   private breakpointObserver = inject(BreakpointObserver);
   private sub?: any;
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.sub = this.breakpointObserver
@@ -47,5 +53,14 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
 
   toggleSidenav(): void {
     this.sidenavOpened = !this.sidenavOpened;
+  }
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
+  get isAuthenticated(): boolean {
+    return this.auth.isAuthenticated();
   }
 }

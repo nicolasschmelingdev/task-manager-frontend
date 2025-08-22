@@ -1,6 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- Sidebar Navigation -->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav *ngIf="isAuthenticated" #drawer class="sidenav" fixedInViewport
                [attr.role]="'navigation'"
                [mode]="sidenavMode"
                [opened]="sidenavOpened">
@@ -27,17 +27,25 @@
   <mat-sidenav-content>
     <!-- Header Toolbar -->
     <mat-toolbar color="primary" class="main-toolbar">
-      <button type="button"
+      <button *ngIf="isAuthenticated" type="button"
               aria-label="Abrir/fechar menu"
               mat-icon-button
               (click)="toggleSidenav()">
         <mat-icon aria-label="Ícone do menu lateral">menu</mat-icon>
       </button>
-      <span class="app-title">Gerenciador de Tarefas</span>
-      <span class="spacer"></span>
-      <button mat-icon-button aria-label="Menu do usuário">
-        <mat-icon>account_circle</mat-icon>
-      </button>
+      <span class="app-title" *ngIf="isAuthenticated">Gerenciador de Tarefas</span>
+      <span class="spacer" *ngIf="isAuthenticated"></span>
+      <ng-container *ngIf="isAuthenticated">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Menu do usuário">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Sair</span>
+          </button>
+        </mat-menu>
+      </ng-container>
     </mat-toolbar>
 
     <!-- Page Content -->
